@@ -46,13 +46,11 @@ export class MatchHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.fetchMatches();
-
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
   viewMatchDetails(id: string) {
-    console.log('View match details for:', id);
     this.route.navigate([`/match/details/${id}`]);
   }
 

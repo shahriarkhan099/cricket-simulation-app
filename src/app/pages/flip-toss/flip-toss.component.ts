@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { generateMatchId } from '../../utils/match-utils';
 import { Team } from '../../interfaces/team.interface';
+import { SelectionEvent } from '../../interfaces/selectionEvent.interface';
 
 @Component({
   selector: 'app-flip-toss',
@@ -30,9 +31,6 @@ export class FlipTossComponent {
     if (team2String) {
       this.team2 = JSON.parse(team2String);
     }
-
-    console.log('team1', this.team1);
-    console.log('team2', this.team2);
     this.initialSelect();
   }
 
@@ -42,9 +40,8 @@ export class FlipTossComponent {
     localStorage.setItem('tossWinner', JSON.stringify(this.tossResult));
   }
 
-  onSelectionChange(event: any): void {
+  onSelectionChange(event: SelectionEvent): void {
     this.tossDescision = event.value;
-    console.log(this.tossDescision);
     localStorage.setItem('tossSelection', JSON.stringify(this.tossDescision));
   }
 

@@ -1,4 +1,6 @@
-<div class="match-container">
+<app-loader *ngIf="isLoading"></app-loader>
+
+<div class="match-container" *ngIf="!isLoading">
   <h1>Match Details</h1>
   <h3><strong>{{ matchData?.team1?.name }}</strong> vs <strong>{{ matchData?.team2?.name }}</strong></h3>
   <h3>

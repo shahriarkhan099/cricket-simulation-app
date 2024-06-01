@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Match } from '../../interfaces/match.interface';
 import { MatchDetails } from '../../interfaces/matchDetails.interface';
 import { environment } from '../../../environments/environment.prod';
+import { MatchData } from '../../interfaces/matchData.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class MatchService {
     return this.http.get<MatchDetails>(`${this.baseUrl}/matches/${matchId}`);
   }
 
-  postMatchData(matchData: any): Observable<void> {
+  postMatchData(matchData: MatchData): Observable<void> {
     return this.http.post<void>(`${this.baseUrl}/matches`, matchData);
   }
 }

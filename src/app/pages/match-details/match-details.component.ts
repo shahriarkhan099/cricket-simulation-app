@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { MatchDetails } from '../../interfaces/matchDetails.interface';
 import { Inning } from '../../interfaces/inning.interface';
 import { MatchService } from '../../services/match/match.service';
 import { determineMatchWinner } from '../../utils/match-utils';
+import { MatchData } from '../../interfaces/matchData.interface';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-match-details',
@@ -12,9 +12,10 @@ import { determineMatchWinner } from '../../utils/match-utils';
 })
 export class MatchDetailsComponent implements OnInit {
   matchId: string = '';
-  matchData: any | undefined;
+  matchData: MatchData | undefined;
   matchInnings: Inning[] = [];
   displayedColumns: string[] = ['ball', 'run'];
+  isLoading: boolean = true;
 
   constructor(
     private router: ActivatedRoute,
@@ -31,14 +32,18 @@ export class MatchDetailsComponent implements OnInit {
 
   fetchMatchDetails() {
     if (this.matchId) {
+      this.isLoading = true;
       this.matchService.getMatchDetails(this.matchId).subscribe({
-        next: (data: MatchDetails) => {
+        next: (data: any) => {
           this.matchData = data;
           this.matchInnings = data.innings;
         },
         error: (error) => {
           console.error('Error fetching data:', error);
         },
+        complete: () => {
+          this.isLoading = false;
+        }
       });
     }
   }
