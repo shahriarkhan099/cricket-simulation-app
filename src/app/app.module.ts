@@ -13,6 +13,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Routing
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +26,7 @@ import { MatchHistoryComponent } from './pages/match-history/match-history.compo
 import { FlipTossComponent } from './pages/flip-toss/flip-toss.component';
 import { MatchWinnerComponent } from './pages/match-winner/match-winner.component';
 import { MatchDetailsComponent } from './pages/match-details/match-details.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { MatchDetailsComponent } from './pages/match-details/match-details.compo
     MatchHistoryComponent,
     MatchWinnerComponent,
     MatchDetailsComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { MatchDetailsComponent } from './pages/match-details/match-details.compo
     MatRadioModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     provideAnimationsAsync()

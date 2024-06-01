@@ -1,29 +1,65 @@
-<div class="toss-div">
-
-  <div  *ngIf="tossResult">
-    <h1 style="text-align: center; padding: 2rem;">Select who will bowl first?</h1>
-      <div style="display: flex;">
-        <div class="team" *ngIf="team1" style="padding-right: 1rem;">
-          <img style="width: 250px; height: 150px; object-fit: cover; border-radius: 10px" [src]="team1.image" alt="{{ team1.name }} flag" class="team-flag">
-          <mat-radio-button  [value]="team1.name" (change)="onSelectionChange($event)">{{ team1.name }}</mat-radio-button>
-        </div>
-        <div class="team" *ngIf="team2">
-          <img style="width: 250px; height: 150px; object-fit: cover; border-radius: 10px" [src]="team2.image" alt="{{ team2.name }} flag" class="team-flag">
-          <mat-radio-button  [value]="team2.name" (change)="onSelectionChange($event)">{{ team2.name }}</mat-radio-button>
-        </div>
-
+<div class="selection-container">
+  <div *ngIf="tossResult">
+    <h1 style="text-align: center; padding: 2rem">
+      Select who will bowl first?
+    </h1>
+    <div style="display: flex">
+      <div class="team-div" *ngIf="team1" style="padding-right: 1rem">
+        <img
+          style="
+            width: 250px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+          "
+          [src]="team1.image"
+          alt="{{ team1.name }} flag"
+        />
+        <mat-radio-button
+          [value]="team1.name"
+          (change)="onSelectionChange($event)"
+          >{{ team1.name }}</mat-radio-button
+        >
       </div>
+      <div class="team-div" *ngIf="team2">
+        <img
+          style="
+            width: 250px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+          "
+          [src]="team2.image"
+          alt="{{ team2.name }} flag"
+        />
+        <mat-radio-button
+          [value]="team2.name"
+          (change)="onSelectionChange($event)"
+          >{{ team2.name }}</mat-radio-button
+        >
+      </div>
+    </div>
   </div>
 
-
-  <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;" *ngIf="tossResult">
-   
-
-    <div *ngIf="tossDescision" style="padding: 1rem;">
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    "
+    *ngIf="tossResult"
+  >
+    <div *ngIf="tossDescision" style="padding: 1rem">
       {{ tossDescision }} will bowl first
     </div>
-    
-    <button mat-raised-button [disabled]="!tossDescision" (click)="startMatch()">Let's Play</button>
-  </div>
 
+    <button
+      mat-raised-button
+      [disabled]="!tossDescision"
+      (click)="startMatch()"
+    >
+      Let's Play
+    </button>
+  </div>
 </div>

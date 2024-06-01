@@ -12,18 +12,21 @@ import { TeamService } from '../../services/team/team.service';
 export class SelectTeamsComponent {
   teams: Team[] = [];
   selectedTeams: Team[] = [];
+  isLoading: boolean = true;
 
   constructor(private router: Router, private teamService: TeamService) {}
 
   ngOnInit(): void {
-    this.teamService.getTeams().subscribe(
-      (data: Team[]) => {
+    this.teamService.getTeams().subscribe({
+      next: (data: Team[]) => {
         this.teams = data;
+        this.isLoading = false;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching teams', error);
+        this.isLoading = false;
       }
-    );
+    });
   }
 
   onTeamSelect(team: Team, event: MatCheckboxChange) {

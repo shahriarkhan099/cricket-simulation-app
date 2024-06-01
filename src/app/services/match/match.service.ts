@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Match } from '../../interfaces/match.interface';
 import { MatchDetails } from '../../interfaces/matchDetails.interface';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MatchService {
-  baseUrl = 'https://cricket-simulation-server.onrender.com';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -20,7 +21,7 @@ export class MatchService {
     return this.http.get<MatchDetails>(`${this.baseUrl}/matches/${matchId}`);
   }
 
-  postMatchData(matchData: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/matches`, matchData);
+  postMatchData(matchData: any): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/matches`, matchData);
   }
 }

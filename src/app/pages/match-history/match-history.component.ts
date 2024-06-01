@@ -20,6 +20,7 @@ export class MatchHistoryComponent implements OnInit {
     'actions',
   ];
   dataSource = new MatTableDataSource<Match>([]);
+  isLoading: boolean = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -27,6 +28,7 @@ export class MatchHistoryComponent implements OnInit {
   constructor(private matchService: MatchService, private route: Router) {}
 
   fetchMatches() {
+    this.isLoading = true;
     this.matchService.getMatches().subscribe({
       next: (data) => {
         this.dataSource = new MatTableDataSource<Match>(data);
@@ -36,6 +38,9 @@ export class MatchHistoryComponent implements OnInit {
       error: (error) => {
         console.error('Error fetching data:', error);
       },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
 

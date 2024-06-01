@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { generateMatchId } from '../../utils/match-utils';
+import { Team } from '../../interfaces/team.interface';
 
 @Component({
   selector: 'app-flip-toss',
@@ -9,9 +10,9 @@ import { generateMatchId } from '../../utils/match-utils';
 })
 export class FlipTossComponent {
   matchId?: string;
-  team1: any;
-  team2: any;
-  tossResult: any;
+  team1!: Team;
+  team2!: Team;
+  tossResult!: Team;
   selectedTeam: string = '';
   tossDescision: string = '';
 

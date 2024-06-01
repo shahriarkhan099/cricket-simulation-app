@@ -1,4 +1,6 @@
-<div class="match-list-container">
+<app-loader *ngIf="isLoading"></app-loader>
+
+<div class="match-list-container" *ngIf="!isLoading">
   <table
     mat-table
     [dataSource]="dataSource"
