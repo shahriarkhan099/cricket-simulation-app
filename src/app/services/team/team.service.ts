@@ -7,7 +7,7 @@ import { Team } from '../../interfaces/team.interface';
   providedIn: 'root',
 })
 export class TeamService {
-  baseUrl = 'http://localhost:3000';
+  baseUrl = 'https://cricket-simulation-server.onrender.com';
 
   constructor(private http: HttpClient) {}
 

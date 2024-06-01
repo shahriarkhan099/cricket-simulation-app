@@ -8,7 +8,7 @@ import { MatchDetails } from '../../interfaces/matchDetails.interface';
   providedIn: 'root',
 })
 export class MatchService {
-  baseUrl = 'https://selise-assessment-server.onrender.com';
+  baseUrl = 'https://cricket-simulation-server.onrender.com';
 
   constructor(private http: HttpClient) {}
 
