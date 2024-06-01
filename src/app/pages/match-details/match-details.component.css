@@ -1,0 +1,25 @@
+.match-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.team-banner {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.custom-image {
+  width: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.result-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #89cff0;
+}

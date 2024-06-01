@@ -1,0 +1,47 @@
+<div style="display: flex; flex-direction: column; align-items: center">
+  <h1>Let's Play Cricket</h1>
+  <h3>{{ team1.name }} vs {{ team2.name }}</h3>
+  <h3><strong>{{ tossWinner.name }}</strong> has won the toss and elected to bowl first</h3>
+
+  <div *ngIf="play">
+    <h3 class="result-banner">Winner of the match is {{ winner }}!</h3>
+  </div>
+
+  <div *ngIf="play" style="display: flex; flex-direction: row">
+    <div
+      *ngFor="let inning of innings; let i = index"
+      style="padding-right: 4rem"
+    >
+      <div class="team-banner">
+        <h3>{{ inning.team.name }}'s Innings:</h3>
+        <img
+          class="custom-image"
+          [src]="inning.team.image"
+          alt="{{ inning.team.name }} flag"
+        />
+      </div>
+
+      <table mat-table [dataSource]="inning.runs">
+        <ng-container matColumnDef="ball">
+          <th mat-header-cell *matHeaderCellDef>Over</th>
+          <td mat-cell *matCellDef="let element">0.{{ element.ball }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="run">
+          <th mat-header-cell *matHeaderCellDef>Run</th>
+          <td mat-cell *matCellDef="let element">{{ element.run }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <p>Total Run: {{ inning.totalRuns }}</p>
+    </div>
+  </div>
+
+  <div class="end-div">
+    <button *ngIf="innings.length < 2" mat-raised-button (click)="playInning()">
+      Start Simulation
+    </button>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+.team-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.custom-image {
+  width: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.result-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #89cff0;
+}
+
+.end-div button {
+  background-color: #89cff0;
+  color: white;
+}

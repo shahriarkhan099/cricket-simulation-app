@@ -1,0 +1,41 @@
+<div class="match-container">
+  <h1>Match Details</h1>
+  <h3><strong>{{ matchData?.team1?.name }}</strong> vs <strong>{{ matchData?.team2?.name }}</strong></h3>
+  <h3>
+    <strong>{{ matchData?.tossWinner?.name }}</strong> has won the toss and elected to bowl first
+  </h3>
+
+  <h3 class="result-banner" *ngIf="getWinner()">Winner: {{ getWinner() }}</h3>
+
+  <div style="display: flex; flex-direction: row">
+    <div
+      *ngFor="let inning of matchInnings; let i = index"
+      style="padding-right: 4rem"
+    >
+      <div class="team-banner">
+        <h3>{{ inning.team.name }}'s Innings:</h3>
+        <img
+          class="custom-image"
+          [src]="inning.team.image"
+          alt="{{ inning.team.name }} flag"
+        />
+      </div>
+
+      <table mat-table [dataSource]="inning.runs">
+        <ng-container matColumnDef="ball">
+          <th mat-header-cell *matHeaderCellDef>Over</th>
+          <td mat-cell *matCellDef="let element">0.{{ element.ball }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="run">
+          <th mat-header-cell *matHeaderCellDef>Run</th>
+          <td mat-cell *matCellDef="let element">{{ element.ball }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <p class="total">Total Run: {{ inning.totalRuns }}</p>
+    </div>
+  </div>
+</div>
