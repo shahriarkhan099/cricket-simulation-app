@@ -19,9 +19,9 @@ export class MatchWinnerComponent {
   play: boolean = false;
   winner?: string;
   id!: string | null;
-  displayedColumns: string[] = ['ball', 'run'];
+  tableColumns: string[] = ['ball', 'run'];
   tossDescision!: string;
-  tossSelection!: string;
+  selectedTossDecision!: string;
 
   constructor(
     private router: ActivatedRoute,
@@ -50,12 +50,12 @@ export class MatchWinnerComponent {
     }
 
     if (tossSelectionString) {
-      this.tossSelection = JSON.parse(tossSelectionString);
+      this.selectedTossDecision = JSON.parse(tossSelectionString);
     }
 
     this.innings.push({ team: this.tossWinner, runs: [], totalRuns: 0 });
 
-    if (this.tossWinner.name !== this.tossSelection) {
+    if (this.tossWinner.name !== this.selectedTossDecision) {
       this.tossDescision = 'bat';
     } else {
       this.tossDescision = 'bowl';

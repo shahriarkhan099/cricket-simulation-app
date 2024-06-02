@@ -14,7 +14,7 @@ export class MatchDetailsComponent implements OnInit {
   matchId!: string;
   matchData!: MatchData;
   matchInnings: Inning[] = [];
-  displayedColumns: string[] = ['ball', 'run'];
+  tableColumns: string[] = ['ball', 'run'];
   isLoading: boolean = true;
 
   constructor(
