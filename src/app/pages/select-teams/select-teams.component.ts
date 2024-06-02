@@ -12,7 +12,7 @@ import { TeamService } from '../../services/team/team.service';
 export class SelectTeamsComponent {
   teams: Team[] = [];
   chosenTeams: Team[] = [];
-  isLoading: boolean = true;
+  isLoadingOn: boolean = true;
 
   constructor(private router: Router, private teamService: TeamService) {}
 
@@ -20,11 +20,11 @@ export class SelectTeamsComponent {
     this.teamService.getTeams().subscribe({
       next: (data: Team[]) => {
         this.teams = data;
-        this.isLoading = false;
+        this.isLoadingOn = false;
       },
       error: (error) => {
         console.error('Error fetching teams', error);
-        this.isLoading = false;
+        this.isLoadingOn = false;
       },
     });
   }

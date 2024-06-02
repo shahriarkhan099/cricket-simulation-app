@@ -15,7 +15,7 @@ export class MatchDetailsComponent implements OnInit {
   matchData!: MatchData;
   matchInnings: Inning[] = [];
   tableColumns: string[] = ['ball', 'run'];
-  isLoading: boolean = true;
+  isLoadingOn: boolean = true;
 
   constructor(
     private router: ActivatedRoute,
@@ -32,7 +32,7 @@ export class MatchDetailsComponent implements OnInit {
 
   getAllMatchHistory() {
     if (this.matchId) {
-      this.isLoading = true;
+      this.isLoadingOn = true;
       this.matchService.getMatchDetails(this.matchId).subscribe({
         next: (data: any) => {
           this.matchData = data;
@@ -42,7 +42,7 @@ export class MatchDetailsComponent implements OnInit {
           console.error('Error fetching data:', error);
         },
         complete: () => {
-          this.isLoading = false;
+          this.isLoadingOn = false;
         },
       });
     }

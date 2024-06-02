@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { determineMatchWinner, randomRun } from '../../utils/match-utils';
 import { MatchService } from '../../services/match/match.service';
 import { Team } from '../../interfaces/team.interface';
 import { Inning } from '../../interfaces/inning.interface';
+import { determineMatchWinner, randomRun } from '../../utils/match-utils';
 
 @Component({
   selector: 'app-match-winner',
   templateUrl: './match-winner.component.html',
-  styleUrl: './match-winner.component.css',
+  styleUrls: ['./match-winner.component.css'],
 })
-export class MatchWinnerComponent {
+export class MatchWinnerComponent implements OnInit {
   team1!: Team;
   team2!: Team;
   tossWinner!: Team;
@@ -20,8 +20,7 @@ export class MatchWinnerComponent {
   winner?: string;
   id!: string | null;
   tableColumns: string[] = ['ball', 'run'];
-  tossDescision!: string;
-  selectedTossDecision!: string;
+  tossDecision!: string;
 
   constructor(
     private router: ActivatedRoute,
@@ -32,34 +31,28 @@ export class MatchWinnerComponent {
     this.router.paramMap.subscribe((params) => {
       this.id = params.get('id');
     });
+    this.initializeTeams();
+    this.initializeToss();
+  }
+
+  initializeTeams() {
     const team1String = localStorage.getItem('team1');
     const team2String = localStorage.getItem('team2');
-    const tossWinnerString = localStorage.getItem('tossWinner');
-    const tossSelectionString = localStorage.getItem('tossSelection');
-
-    if (team1String) {
+    if (team1String && team2String) {
       this.team1 = JSON.parse(team1String);
-    }
-
-    if (team2String) {
       this.team2 = JSON.parse(team2String);
     }
+  }
 
-    if (tossWinnerString) {
+  initializeToss() {
+    const tossWinnerString = localStorage.getItem('tossWinner');
+    const selectedTossDecisionString = localStorage.getItem('tossSelection');
+    if (tossWinnerString && selectedTossDecisionString) {
       this.tossWinner = JSON.parse(tossWinnerString);
+      this.tossDecision =
+        this.tossWinner.name === selectedTossDecisionString ? 'bowl' : 'bat';
     }
-
-    if (tossSelectionString) {
-      this.selectedTossDecision = JSON.parse(tossSelectionString);
-    }
-
     this.innings.push({ team: this.tossWinner, runs: [], totalRuns: 0 });
-
-    if (this.tossWinner.name !== this.selectedTossDecision) {
-      this.tossDescision = 'bat';
-    } else {
-      this.tossDescision = 'bowl';
-    }
   }
 
   cricketSimulation() {

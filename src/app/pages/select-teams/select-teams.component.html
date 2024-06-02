@@ -1,6 +1,6 @@
-<app-loader *ngIf="isLoading"></app-loader>
+<app-loader *ngIf="isLoadingOn"></app-loader>
 
-<div *ngIf="!isLoading">
+<div *ngIf="!isLoadingOn">
   <h2 class="title-header">Let's Play Cricket</h2>
   <mat-grid-list cols="2" rowHeight="150px">
     <mat-grid-tile *ngFor="let team of teams">

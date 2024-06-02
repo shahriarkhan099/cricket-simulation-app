@@ -1,6 +1,6 @@
-<app-loader *ngIf="isLoading"></app-loader>
+<app-loader *ngIf="isLoadingOn"></app-loader>
 
-<div class="match-container" *ngIf="!isLoading">
+<div class="match-container" *ngIf="!isLoadingOn">
   <h1>Match Details</h1>
   <h3>
     <strong>{{ matchData.team1.name }}</strong> vs
@@ -18,7 +18,7 @@
   <div style="display: flex; flex-direction: row">
     <div
       *ngFor="let inning of matchInnings; let i = index"
-      style="padding-right: 4rem"
+      style="padding-right: 10rem; padding-left: 10rem"
     >
       <img
         class="custom-image"
