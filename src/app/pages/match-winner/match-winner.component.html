@@ -1,7 +1,10 @@
 <div style="display: flex; flex-direction: column; align-items: center">
   <h1>Let's Play Cricket</h1>
   <h3>{{ team1.name }} vs {{ team2.name }}</h3>
-  <h3><strong>{{ tossWinner.name }}</strong> has won the toss and elected to bowl first</h3>
+  <h3>
+    <strong>{{ tossWinner.name }}</strong> has won the toss and elected to bowl
+    first
+  </h3>
 
   <div *ngIf="play">
     <h3 class="result-banner">Winner of the match is {{ winner }}!</h3>
@@ -40,7 +43,11 @@
   </div>
 
   <div class="end-div">
-    <button *ngIf="innings.length < 2" mat-raised-button (click)="playInning()">
+    <button
+      *ngIf="innings.length < 2"
+      mat-raised-button
+      (click)="cricketSimulation()"
+    >
       Start Simulation
     </button>
   </div>

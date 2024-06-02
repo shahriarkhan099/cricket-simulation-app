@@ -10,12 +10,12 @@ import { SelectionEvent } from '../../interfaces/selectionEvent.interface';
   styleUrl: './flip-toss.component.css',
 })
 export class FlipTossComponent {
-  matchId?: string;
+  matchId!: string;
   team1!: Team;
   team2!: Team;
   tossResult!: Team;
-  selectedTeam: string = '';
-  tossDescision: string = '';
+  selectedTeam!: string;
+  tossDescision!: string;
 
   constructor(private router: Router) {}
 
@@ -40,12 +40,12 @@ export class FlipTossComponent {
     localStorage.setItem('tossWinner', JSON.stringify(this.tossResult));
   }
 
-  onSelectionChange(event: SelectionEvent): void {
+  handleSelectionChange(event: SelectionEvent): void {
     this.tossDescision = event.value;
     localStorage.setItem('tossSelection', JSON.stringify(this.tossDescision));
   }
 
-  startMatch() {
+  beginPlaying() {
     this.router.navigate([`/play/${this.matchId}`]);
   }
 }

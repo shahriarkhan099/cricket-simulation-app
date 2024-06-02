@@ -11,8 +11,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './match-details.component.css',
 })
 export class MatchDetailsComponent implements OnInit {
-  matchId: string = '';
-  matchData: MatchData | undefined;
+  matchId!: string;
+  matchData!: MatchData;
   matchInnings: Inning[] = [];
   displayedColumns: string[] = ['ball', 'run'];
   isLoading: boolean = true;
@@ -26,11 +26,11 @@ export class MatchDetailsComponent implements OnInit {
     this.router.paramMap.subscribe((params) => {
       const id = params.get('matchId');
       this.matchId = id || '';
-      this.fetchMatchDetails();
+      this.getAllMatchHistory();
     });
   }
 
-  fetchMatchDetails() {
+  getAllMatchHistory() {
     if (this.matchId) {
       this.isLoading = true;
       this.matchService.getMatchDetails(this.matchId).subscribe({
@@ -43,12 +43,12 @@ export class MatchDetailsComponent implements OnInit {
         },
         complete: () => {
           this.isLoading = false;
-        }
+        },
       });
     }
   }
 
-  getWinner(): string | undefined {
+  calculateMatchWinner(): string | undefined {
     if (!this.matchData || !this.matchData.innings) {
       return undefined;
     }

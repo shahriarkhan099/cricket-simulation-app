@@ -17,7 +17,7 @@
         />
         <mat-radio-button
           [value]="team1.name"
-          (change)="onSelectionChange($event)"
+          (change)="handleSelectionChange($event)"
           >{{ team1.name }}</mat-radio-button
         >
       </div>
@@ -34,7 +34,7 @@
         />
         <mat-radio-button
           [value]="team2.name"
-          (change)="onSelectionChange($event)"
+          (change)="handleSelectionChange($event)"
           >{{ team2.name }}</mat-radio-button
         >
       </div>
@@ -57,7 +57,7 @@
     <button
       mat-raised-button
       [disabled]="!tossDescision"
-      (click)="startMatch()"
+      (click)="beginPlaying()"
     >
       Let's Play
     </button>

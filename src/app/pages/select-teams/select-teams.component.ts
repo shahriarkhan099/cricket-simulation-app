@@ -11,7 +11,7 @@ import { TeamService } from '../../services/team/team.service';
 })
 export class SelectTeamsComponent {
   teams: Team[] = [];
-  selectedTeams: Team[] = [];
+  chosenTeams: Team[] = [];
   isLoading: boolean = true;
 
   constructor(private router: Router, private teamService: TeamService) {}
@@ -25,32 +25,32 @@ export class SelectTeamsComponent {
       error: (error) => {
         console.error('Error fetching teams', error);
         this.isLoading = false;
-      }
+      },
     });
   }
 
-  onTeamSelect(team: Team, event: MatCheckboxChange) {
-    const isChecked = event.checked;
-    if (isChecked) {
-      if (this.selectedTeams.length < 2) {
-        this.selectedTeams.push(team);
-      }
-    } else {
-      this.selectedTeams = this.selectedTeams.filter((t) => t.id !== team.id);
+  handleTeamSelection(team: Team, event: MatCheckboxChange): void {
+    const selectionStatus = event.checked;
+    if (selectionStatus && this.chosenTeams.length < 2) {
+      this.chosenTeams.push(team);
+    } else if (!selectionStatus) {
+      this.chosenTeams = this.chosenTeams.filter(
+        (chosenTeams) => chosenTeams.id !== team.id
+      );
     }
   }
 
-  isTeamDisabled(team: Team): boolean {
-    return (
-      this.selectedTeams.length === 2 &&
-      !this.selectedTeams.some((t) => t.id === team.id)
-    );
+  teamSelectionLimitReached(team: Team): boolean {
+    if (this.chosenTeams.length !== 2) {
+      return false;
+    }
+    return !this.chosenTeams.find((chosenTeams) => chosenTeams.id === team.id);
   }
 
-  proceedToToss() {
-    if (this.selectedTeams.length === 2) {
-      localStorage.setItem('team1', JSON.stringify(this.selectedTeams[0]));
-      localStorage.setItem('team2', JSON.stringify(this.selectedTeams[1]));
+  selectBowlingTeam() {
+    if (this.chosenTeams.length === 2) {
+      localStorage.setItem('team1', JSON.stringify(this.chosenTeams[0]));
+      localStorage.setItem('team2', JSON.stringify(this.chosenTeams[1]));
       this.router.navigate(['/toss']);
     }
   }

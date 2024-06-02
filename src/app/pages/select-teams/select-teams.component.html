@@ -5,9 +5,9 @@
   <mat-grid-list cols="2" rowHeight="150px">
     <mat-grid-tile *ngFor="let team of teams">
       <mat-checkbox
-        [ngClass]="{ 'mat-checkbox-disabled': isTeamDisabled(team) }"
-        [disabled]="isTeamDisabled(team)"
-        (change)="onTeamSelect(team, $event)"
+        [ngClass]="{ 'mat-checkbox-disabled': teamSelectionLimitReached(team) }"
+        [disabled]="teamSelectionLimitReached(team)"
+        (change)="handleTeamSelection(team, $event)"
       >
         <img
           mat-card-image
@@ -27,8 +27,8 @@
   <div class="toss-btn">
     <button
       mat-raised-button
-      (click)="proceedToToss()"
-      [disabled]="selectedTeams.length !== 2"
+      (click)="selectBowlingTeam()"
+      [disabled]="chosenTeams.length !== 2"
     >
       Start
     </button>

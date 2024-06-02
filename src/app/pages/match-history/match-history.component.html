@@ -3,7 +3,7 @@
 <div class="match-list-container" *ngIf="!isLoading">
   <table
     mat-table
-    [dataSource]="dataSource"
+    [dataSource]="matchDataList"
     matSort
     class="mat-elevation-z8 smaller-table"
   >
@@ -56,14 +56,14 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="matchHistoryTableColumn"></tr>
+    <tr mat-row *matRowDef="let row; columns: matchHistoryTableColumn"></tr>
   </table>
 
   <mat-paginator
     [pageSizeOptions]="[10, 20, 30]"
     showFirstLastButtons
-    [length]="dataSource.data.length"
+    [length]="matchDataList.data.length"
     [pageSize]="10"
   >
   </mat-paginator>

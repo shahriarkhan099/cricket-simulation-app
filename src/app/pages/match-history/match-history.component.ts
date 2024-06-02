@@ -12,14 +12,14 @@ import { MatchService } from '../../services/match/match.service';
   styleUrl: './match-history.component.css',
 })
 export class MatchHistoryComponent implements OnInit {
-  displayedColumns: string[] = [
+  matchHistoryTableColumn: string[] = [
     'team1',
     'team2',
     'tossWinner',
     'matchWinner',
     'actions',
   ];
-  dataSource = new MatTableDataSource<Match>([]);
+  matchDataList = new MatTableDataSource<Match>([]);
   isLoading: boolean = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -27,38 +27,38 @@ export class MatchHistoryComponent implements OnInit {
 
   constructor(private matchService: MatchService, private route: Router) {}
 
-  fetchMatches() {
+  ngOnInit() {
+    this.getAllMatchData();
+    this.matchDataList.paginator = this.paginator;
+    this.matchDataList.sort = this.sort;
+  }
+
+  getAllMatchData() {
     this.isLoading = true;
     this.matchService.getMatches().subscribe({
       next: (data) => {
-        this.dataSource = new MatTableDataSource<Match>(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.matchDataList = new MatTableDataSource<Match>(data);
+        this.matchDataList.paginator = this.paginator;
+        this.matchDataList.sort = this.sort;
       },
       error: (error) => {
         console.error('Error fetching data:', error);
       },
       complete: () => {
         this.isLoading = false;
-      }
+      },
     });
-  }
-
-  ngOnInit() {
-    this.fetchMatches();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  viewMatchDetails(id: string) {
-    this.route.navigate([`/match/details/${id}`]);
   }
 
   deleteMatch(id: string) {
     if (confirm('Are you sure you want to delete this match?')) {
-      this.dataSource.data = this.dataSource.data.filter(
+      this.matchDataList.data = this.matchDataList.data.filter(
         (match) => match.id !== id
       );
     }
+  }
+
+  viewMatchDetails(id: string) {
+    this.route.navigate([`/match/details/${id}`]);
   }
 }

@@ -1,14 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import {
-  calculateTotalRuns,
-  determineMatchWinner,
-  randomRun,
-} from '../../utils/match-utils';
+import { ActivatedRoute } from '@angular/router';
+import { determineMatchWinner, randomRun } from '../../utils/match-utils';
 import { MatchService } from '../../services/match/match.service';
 import { Team } from '../../interfaces/team.interface';
 import { Inning } from '../../interfaces/inning.interface';
-import { Run } from '../../interfaces/run.interface';
 
 @Component({
   selector: 'app-match-winner',
@@ -25,12 +20,11 @@ export class MatchWinnerComponent {
   winner?: string;
   id!: string | null;
   displayedColumns: string[] = ['ball', 'run'];
-  tossDescision: string = '';
-  tossSelection: string = '';
+  tossDescision!: string;
+  tossSelection!: string;
 
   constructor(
     private router: ActivatedRoute,
-    private route: Router,
     private matchService: MatchService
   ) {}
 
@@ -68,7 +62,7 @@ export class MatchWinnerComponent {
     }
   }
 
-  playInning() {
+  cricketSimulation() {
     let currentInning = this.innings[this.innings.length - 1];
     for (let i = 1; i <= this.balls; i++) {
       let run = randomRun();
@@ -90,7 +84,7 @@ export class MatchWinnerComponent {
     }
     this.play = true;
 
-    this.winner = this.determineMatchWinner(this.innings);
+    this.winner = this.calculateMatchWinner(this.innings);
     localStorage.setItem('winner', this.winner);
 
     const matchData = {
@@ -105,24 +99,7 @@ export class MatchWinnerComponent {
     this.matchService.postMatchData(matchData).subscribe((data) => {});
   }
 
-  showResult() {
-    localStorage.setItem('innings', JSON.stringify(this.innings));
-    this.route.navigate(['/result']);
-  }
-
-  playAgain() {
-    this.route.navigate(['/']);
-  }
-
-  allMatches() {
-    this.route.navigate(['/matches']);
-  }
-
-  calculateTotalRuns(runs: Run[]): number {
-    return calculateTotalRuns(runs);
-  }
-
-  determineMatchWinner(innings: Inning[]): string {
+  calculateMatchWinner(innings: Inning[]): string {
     return determineMatchWinner(innings);
   }
 }
