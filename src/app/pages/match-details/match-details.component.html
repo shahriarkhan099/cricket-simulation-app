@@ -20,13 +20,13 @@
       *ngFor="let inning of matchInnings; let i = index"
       style="padding-right: 4rem"
     >
+      <img
+        class="custom-image"
+        [src]="inning.team.image"
+        alt="{{ inning.team.name }} flag"
+      />
       <div class="team-banner">
         <h3>{{ inning.team.name }}'s Scores:</h3>
-        <img
-          class="custom-image"
-          [src]="inning.team.image"
-          alt="{{ inning.team.name }} flag"
-        />
       </div>
 
       <table mat-table [dataSource]="inning.runs">
